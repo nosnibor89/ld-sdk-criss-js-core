@@ -1,3 +1,4 @@
-import { LDPollingError, LDStreamingError, StreamingErrorHandler } from './errors';
+import { DataSourceErrorKind } from './DataSourceErrorKinds';
+import { LDFileDataSourceError, LDPollingError, LDStreamingError, StreamingErrorHandler } from './errors';
 
-export { LDPollingError, LDStreamingError, StreamingErrorHandler };
+export { DataSourceErrorKind, LDFileDataSourceError, LDPollingError, LDStreamingError, StreamingErrorHandler };

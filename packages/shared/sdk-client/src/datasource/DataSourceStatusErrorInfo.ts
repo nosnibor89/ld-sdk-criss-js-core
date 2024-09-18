@@ -1,3 +1,7 @@
+import { internal } from '@launchdarkly/js-sdk-common';
+
+type DataSourceErrorKind = internal.DataSourceErrorKind;
+
 /// A description of an error condition that the data source encountered.
 export default interface DataSourceStatusErrorInfo {
   /// An enumerated value representing the general category of the error.

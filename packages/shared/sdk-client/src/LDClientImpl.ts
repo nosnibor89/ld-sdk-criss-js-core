@@ -421,7 +421,7 @@ export default class LDClientImpl implements LDClient {
       },
       (err) => {
         identifyReject(err);
-        this.dataSourceEventHandler.handlePollingError(e);
+        this.dataSourceEventHandler.handlePollingError(err);
         this.emitter.emit('error', context, err);
       },
     );

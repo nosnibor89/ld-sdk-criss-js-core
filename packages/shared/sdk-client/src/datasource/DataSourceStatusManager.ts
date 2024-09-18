@@ -1,6 +1,9 @@
 import LDEmitter from '../LDEmitter';
 import DataSourceStatus, { DataSourceState } from './DataSourceStatus';
-import DataSourceStatusErrorInfo, { ErrorKind } from './DataSourceStatusErrorInfo';
+import DataSourceStatusErrorInfo from './DataSourceStatusErrorInfo';
+import { internal } from '@launchdarkly/js-sdk-common';
+
+type DataSourceErrorKind = internal.DataSourceErrorKind;
 
 export type DataSourceStatusCallback = (status: DataSourceStatus) => void;
 

@@ -5,7 +5,8 @@ import { ItemDescriptor } from '../flag-manager/ItemDescriptor';
 import { DeleteFlag, Flags, PatchFlag } from '../types';
 import DataSourceStatusManager from './DataSourceStatusManager';
 
-let { LDPollingError, LDStreamingError } = internal;
+type LDStreamingError = internal.LDStreamingError;
+type LDPollingError = internal.LDPollingError;
 
 export default class DataSourceEventHandler {
   constructor(

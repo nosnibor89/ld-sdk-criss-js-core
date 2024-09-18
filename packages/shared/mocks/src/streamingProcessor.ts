@@ -3,7 +3,6 @@ import type {
   EventName,
   internal,
   LDHeaders,
-  LDStreamingError,
   ProcessStreamResponse,
 } from '@common';
 

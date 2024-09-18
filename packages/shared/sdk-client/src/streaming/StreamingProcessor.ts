@@ -15,6 +15,7 @@ import {
 } from '@launchdarkly/js-sdk-common';
 
 import { StreamingDataSourceConfig } from './DataSourceConfig';
+import { ErrorKind } from '../datasource/DataSourceStatusErrorInfo';
 
 const reportJsonError = (
   type: string,
@@ -162,7 +163,9 @@ class StreamingProcessor implements subsystem.LDStreamProcessor {
           }
           processJson(dataJson);
         } else {
-          this.errorHandler?.(new LDStreamingError('Unexpected payload from event stream'));
+          this.errorHandler?.(
+            new LDStreamingError(ErrorKind.InvalidData, 'Unexpected payload from event stream'),
+          );
         }
       });
     });

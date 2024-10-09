@@ -57,6 +57,9 @@ function getStreamingDataSourceConfig(
       pathReport(_encoding: Encoding, _plainContextString: string): string {
         return '/stream/path/report';
       },
+      pathPing(_encoding: Encoding, _plainContextString: string): string {
+        return '/stream/path/ping';
+      },
     },
     baseHeaders: {
       authorization: 'my-sdk-key',

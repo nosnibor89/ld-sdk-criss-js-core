@@ -6,11 +6,11 @@ import {
   DataSourcePaths,
   DataSourceState,
   FlagManager,
-  getPollingUri,
   internal,
   LDEmitter,
   LDHeaders,
   LDIdentifyOptions,
+  makeRequestor,
   Platform,
   Requestor,
 } from '@launchdarkly/js-client-sdk-common';
@@ -93,10 +93,22 @@ export default class BrowserDataManager extends BaseDataManager {
         this.debugLog('Identify - Flags loaded from cache. Continuing to initialize via a poll.');
       }
       const plainContextString = JSON.stringify(Context.toLDContext(context));
-      const requestor = this.getRequestor(plainContextString);
-      await this.finishIdentifyFromPoll(requestor, context, identifyResolve, identifyReject);
-    }
+      const pollingRequestor = makeRequestor(
+        plainContextString,
+        this.config.serviceEndpoints,
+        this.getPollingPaths(),
+        this.platform.requests,
+        this.platform.encoding!,
+        this.baseHeaders,
+        [],
+        this.config.useReport,
+        this.config.withReasons,
+        this.secureModeHash,
+      );
+      await this.finishIdentifyFromPoll(pollingRequestor, context, identifyResolve, identifyReject);
 
+      resume at figuring out lifecycle of requestor creation/cleanup as well as updating other SDK DataManager implementations to make requestors
+    }
     this.updateStreamingState();
   }
 
@@ -198,32 +210,5 @@ export default class BrowserDataManager extends BaseDataManager {
     this.createStreamingProcessor(rawContext, context, identifyResolve, identifyReject);
 
     this.updateProcessor!.start();
-  }
-
-  private getRequestor(plainContextString: string): Requestor {
-    const paths = this.getPollingPaths();
-    const path = this.config.useReport
-      ? paths.pathReport(this.platform.encoding!, plainContextString)
-      : paths.pathGet(this.platform.encoding!, plainContextString);
-
-    const parameters: { key: string; value: string }[] = [];
-    if (this.config.withReasons) {
-      parameters.push({ key: 'withReasons', value: 'true' });
-    }
-    if (this.secureModeHash) {
-      parameters.push({ key: 'h', value: this.secureModeHash });
-    }
-
-    const headers: { [key: string]: string } = { ...this.baseHeaders };
-    let body;
-    let method = 'GET';
-    if (this.config.useReport) {
-      method = 'REPORT';
-      headers['content-type'] = 'application/json';
-      body = plainContextString; // context is in body for REPORT
-    }
-
-    const uri = getPollingUri(this.config.serviceEndpoints, path, parameters);
-    return new Requestor(this.platform.requests, uri, headers, method, body);
   }
 }

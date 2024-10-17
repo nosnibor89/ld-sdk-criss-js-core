@@ -1,19 +1,13 @@
-<script>
-  import { LDProvider } from '@launchdarkly/svelte-client-sdk';
-  import { LDFlag } from '@launchdarkly/svelte-client-sdk';
-  const context = {
-    kind: 'user',
-    key: 'example-context-key',
-    name: 'Sandy'
-  };
+<script lang="ts">
+	import { LDFlag } from '@launchdarkly/svelte-client-sdk';
+	import { PUBLIC_LD_FLAG_KEY } from '$env/static/public';
 </script>
-<LDProvider clientID="" {context}>
-  <LDFlag flag={'example-flag'}>
-    <div slot="true">
-      <p>this will render if the feature flag is on</p>
-    </div>
-    <div slot="false">
-      <p>this will render if the feature flag is off</p>
-    </div>
-  </LDFlag>
-</LDProvider>
+
+<LDFlag flag={PUBLIC_LD_FLAG_KEY}>
+	<div slot="true">
+		<p>this will render if the feature flag is on</p>
+	</div>
+	<div slot="false">
+		<p>this will render if the feature flag is off</p>
+	</div>
+</LDFlag>

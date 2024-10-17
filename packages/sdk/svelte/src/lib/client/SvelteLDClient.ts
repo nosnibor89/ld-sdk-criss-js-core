@@ -1,4 +1,4 @@
-import { DEV } from 'esm-env';
+import { DEV, BROWSER } from 'esm-env';
 import { initialize } from 'launchdarkly-js-client-sdk';
 import type {
   LDClient,
@@ -14,7 +14,7 @@ import { derived, get, type Readable, readonly, writable, type Writable } from '
  * TODO: Add better logging strategy.
  */
 function debugLog(callback: () => void): void {
-  if (DEV) {
+  if (BROWSER && DEV) {
     callback();
   }
 }
@@ -58,7 +58,7 @@ function createLD() {
    * @returns {Writable<boolean>} An object with the initialization status store.
    */
   function LDInitialize(clientId: LDClientID, context: LDContext) {
-    debugLog(() => console.log('Initializing LaunchDarkly client'));
+    debugLog(() => console.log('[LaunchDarkly] initializing LaunchDarkly client'));
 
     jsSdk = initialize(clientId, context);
 
@@ -68,7 +68,7 @@ function createLD() {
     });
 
     jsSdk.on('change', (changes) => {
-      debugLog(() => console.log('Flags updated', changes));
+      debugLog(() => console.log('[LaunchDarkly] flags updated', changes));
       flagsWritable.set(jsSdk!.allFlags());
     });
 
@@ -93,9 +93,8 @@ function createLD() {
    * @returns {Readable<LDFlagsValue>} A readable store of the flag value.
    */
   const watch = (flagKey: string): Readable<LDFlagsValue> => {
-    isClientInitialized(jsSdk);
     return derived<Writable<LDFlags>, LDFlagsValue>(flagsWritable, ($flags) => {
-      debugLog(() => console.log('watching', flagKey, $flags[flagKey], $flags));
+      debugLog(() => console.log('[LaunchDarkly] watching', flagKey, $flags[flagKey], $flags));
       return $flags[flagKey];
     });
   };

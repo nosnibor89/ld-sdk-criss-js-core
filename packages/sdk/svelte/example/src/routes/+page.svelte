@@ -4,12 +4,6 @@
 </script>
 
 <LDFlag flag={PUBLIC_LD_FLAG_KEY}>
-	<!-- <div slot="true" style="--bg-color: lightblue;">
-		<p>this box is lightblue when flag is on ({PUBLIC_LD_FLAG_KEY})</p>
-	</div>
-	<div slot="false" style="--bg-color: lightyellow;">
-		<p>this box is lightyellow when flag is off ({PUBLIC_LD_FLAG_KEY})</p>
-	</div> -->
 	{#snippet on()}
 		<div style="--bg-color: lightblue;">
 			<p>

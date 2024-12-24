@@ -20,6 +20,32 @@ All notable changes to the LaunchDarkly SDK for Vercel Edge Config will be docum
   * dependencies
     * @launchdarkly/js-server-sdk-common-edge bumped from 2.2.1 to 2.2.2
 
+## [1.4.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/vercel-server-sdk-v1.3.21...vercel-server-sdk-v1.4.0) (2024-12-24)
+
+
+### Features
+
+* add new Vercel example ([#130](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/130)) ([d25f327](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/d25f327d9364ff3748e364426d9d6cfd83223bcf))
+* Allow specifying the user agent per-sdk implementation. ([#226](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/226)) ([e57716f](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/e57716f3f6f0ba8568e32b0937903ca46e5470ad))
+* React-native support for auto-env attributes. ([#357](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/357)) ([deea99c](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/deea99ca2fbb3865f2ce55a83b2cf12e0ae2db5e))
+* Support analytics events in the vercel SDK. ([#316](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/316)) ([cc41db4](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/cc41db4dedc8be9e7e9cbbc0978928adaa48c2ec))
+* Switch to es2017 target to ensure native async/await. ([#231](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/231)) ([a83e4e6](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/a83e4e62d04c66105a1b0e8893640a7ca2d641e4))
+* update Vercel example ([#129](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/129)) ([2296c4f](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/2296c4f8ad1febc3bd22c2272fcefebaf8d4cce6))
+* Vercel 1.0.0 ([#177](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/177)) ([78daeaf](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/78daeaf566957075c823600a03f8475bebd4dbdb))
+
+
+### Bug Fixes
+
+* avoid modifying req.nextUrl ([#142](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/142)) ([49329d2](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/49329d2f142b83bc79361cd5b22c438f78a197b5))
+* Update to major version of @vercel/edge-config ([#393](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/393)) ([bbaf01c](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/bbaf01cd4afa74e5e2da13ba54799c4f689a3f49))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-server-sdk-common-edge bumped from 2.5.2 to 3.0.0
+
 ## [1.3.21](https://github.com/launchdarkly/js-core/compare/vercel-server-sdk-v1.3.20...vercel-server-sdk-v1.3.21) (2024-11-14)
 
 

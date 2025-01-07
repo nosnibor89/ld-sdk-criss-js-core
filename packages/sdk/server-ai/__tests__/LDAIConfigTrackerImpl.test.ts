@@ -13,26 +13,26 @@ const mockLdClient: LDClientMin = {
 
 const testContext: LDContext = { kind: 'user', key: 'test-user' };
 const configKey = 'test-config';
-const versionKey = 'v1';
+const variationKey = 'v1';
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 it('tracks duration', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   tracker.trackDuration(1000);
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:duration:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1000,
   );
 });
 
 it('tracks duration of async function', async () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(2000);
 
   const result = await tracker.trackDurationOf(async () => 'test-result');
@@ -41,49 +41,49 @@ it('tracks duration of async function', async () => {
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:duration:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1000,
   );
 });
 
 it('tracks positive feedback', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   tracker.trackFeedback({ kind: LDFeedbackKind.Positive });
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:feedback:user:positive',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1,
   );
 });
 
 it('tracks negative feedback', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   tracker.trackFeedback({ kind: LDFeedbackKind.Negative });
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:feedback:user:negative',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1,
   );
 });
 
 it('tracks success', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   tracker.trackSuccess();
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:generation',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1,
   );
 });
 
 it('tracks OpenAI usage', async () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
   jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(2000);
 
   const TOTAL_TOKENS = 100;
@@ -101,41 +101,74 @@ it('tracks OpenAI usage', async () => {
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:duration:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1000,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:generation',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     TOTAL_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:input',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     PROMPT_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:output',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     COMPLETION_TOKENS,
   );
 });
 
+it('tracks error when OpenAI metrics function throws', async () => {
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
+  jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(2000);
+
+  const error = new Error('OpenAI API error');
+  await expect(
+    tracker.trackOpenAIMetrics(async () => {
+      throw error;
+    }),
+  ).rejects.toThrow(error);
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:duration:total',
+    testContext,
+    { configKey, variationKey },
+    1000,
+  );
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation:error',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
+});
+
 it('tracks Bedrock conversation with successful response', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   const TOTAL_TOKENS = 100;
   const PROMPT_TOKENS = 49;
@@ -156,55 +189,66 @@ it('tracks Bedrock conversation with successful response', () => {
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:generation',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     1,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:duration:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     500,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     TOTAL_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:input',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     PROMPT_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:output',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     COMPLETION_TOKENS,
   );
 });
 
 it('tracks Bedrock conversation with error response', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   const response = {
     $metadata: { httpStatusCode: 400 },
   };
 
-  // TODO: We may want a track failure.
-
   tracker.trackBedrockConverseMetrics(response);
 
-  expect(mockTrack).not.toHaveBeenCalled();
+  expect(mockTrack).toHaveBeenCalledTimes(2);
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation:error',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
 });
 
 it('tracks tokens', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   const TOTAL_TOKENS = 100;
   const PROMPT_TOKENS = 49;
@@ -219,27 +263,27 @@ it('tracks tokens', () => {
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:total',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     TOTAL_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:input',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     PROMPT_TOKENS,
   );
 
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:output',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     COMPLETION_TOKENS,
   );
 });
 
 it('only tracks non-zero token counts', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   tracker.trackTokens({
     total: 0,
@@ -257,7 +301,7 @@ it('only tracks non-zero token counts', () => {
   expect(mockTrack).toHaveBeenCalledWith(
     '$ld:ai:tokens:input',
     testContext,
-    { configKey, versionKey },
+    { configKey, variationKey },
     50,
   );
 
@@ -270,7 +314,7 @@ it('only tracks non-zero token counts', () => {
 });
 
 it('returns empty summary when no metrics tracked', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   const summary = tracker.getSummary();
 
@@ -278,7 +322,7 @@ it('returns empty summary when no metrics tracked', () => {
 });
 
 it('summarizes tracked metrics', () => {
-  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, versionKey, testContext);
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
 
   tracker.trackDuration(1000);
   tracker.trackTokens({
@@ -303,4 +347,42 @@ it('summarizes tracked metrics', () => {
     },
     success: true,
   });
+});
+
+it('tracks duration when async function throws', async () => {
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
+  jest.spyOn(global.Date, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(2000);
+
+  const error = new Error('test error');
+  await expect(
+    tracker.trackDurationOf(async () => {
+      throw error;
+    }),
+  ).rejects.toThrow(error);
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:duration:total',
+    testContext,
+    { configKey, variationKey },
+    1000,
+  );
+});
+
+it('tracks error', () => {
+  const tracker = new LDAIConfigTrackerImpl(mockLdClient, configKey, variationKey, testContext);
+  tracker.trackError();
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
+
+  expect(mockTrack).toHaveBeenCalledWith(
+    '$ld:ai:generation:error',
+    testContext,
+    { configKey, variationKey },
+    1,
+  );
 });

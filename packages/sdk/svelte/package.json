@@ -38,7 +38,6 @@
     "lint": "eslint . --ext .ts,.tsx",
     "prettier": "prettier --write '**/*.@(js|ts|tsx|json|css)' --ignore-path ../../../.prettierignore",
     "check": "yarn prettier && yarn lint && yarn build && yarn test",
-    "test": "playwright test",
     "test:unit": "vitest",
     "test:unit-ui": "vitest --ui",
     "test:unit-coverage": "vitest --coverage"
@@ -51,7 +50,6 @@
     "esm-env": "^1.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/package": "^2.3.7",

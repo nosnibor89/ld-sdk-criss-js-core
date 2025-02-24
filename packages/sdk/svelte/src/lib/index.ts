@@ -1,5 +1,5 @@
 // Reexport your entry components here
-export { LD as LDClient } from './client/SvelteLDClient.js';
+export { LD } from './client/SvelteLDClient.js';
 export type { LDOptions } from './client/SvelteLDClient.js';
 
 // Export Components

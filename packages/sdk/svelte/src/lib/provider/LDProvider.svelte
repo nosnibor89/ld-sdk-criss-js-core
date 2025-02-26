@@ -6,7 +6,7 @@
   interface LDProviderProps {
     clientID: LDClientID;
     context: LDContext;
-    options: LDOptions;
+    options?: LDOptions;
     initializing?: Snippet;
     children: Snippet;
   }

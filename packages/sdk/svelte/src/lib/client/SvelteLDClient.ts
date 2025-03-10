@@ -95,11 +95,13 @@ function createLD() {
   }
 
   /**
-   * Identifies the user context.
-   * @param {LDContext} context - The user context.
-   * @returns {Promise} A promise that resolves when the user is identified.
+   * Identifies the user context and returns the set of feature flags for that context.
+   *
+   * @param context - The LaunchDarkly context containing user information.
+   * @returns A promise that resolves to an LDFlagSet, which is a set of feature flags for the given context.
+   * @throws Will throw an error if the client is not initialized.
    */
-  async function identify(context: LDContext) {
+  async function identify(context: LDContext): Promise<LDFlagSet> {
     isClientInitialized(coreLdClient);
     return coreLdClient.identify(context);
   }

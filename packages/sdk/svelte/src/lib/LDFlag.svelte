@@ -11,7 +11,7 @@
 
   let { on, off, flag, matches = true }: LDFlagProps = $props();
 
-  const flagValue = $derived(LD.watch(flag));
+  const flagValue = LD.watch(flag);
 </script>
 
 {#if $flagValue === matches}

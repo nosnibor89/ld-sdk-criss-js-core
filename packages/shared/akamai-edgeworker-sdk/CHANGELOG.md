@@ -86,6 +86,40 @@ All notable changes to the LaunchDarkly SDK for Akamai Workers will be documente
   * dependencies
     * @launchdarkly/js-server-sdk-common bumped from ^2.2.1 to ^2.2.2
 
+## [3.0.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/akamai-edgeworker-sdk-common-v2.0.7...akamai-edgeworker-sdk-common-v3.0.0) (2025-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* Replace prefetch behavior with simple TTL cache ([#786](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/786))
+* Implement Migrations. Refactor for client SDKs. ([#293](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/293))
+
+### Features
+
+* Add cacheTtlMs option ([#760](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/760)) ([4f961dd](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/4f961dd16fd10f5bb55dd2116d26b218944bfeb2))
+* Add support for conditional event source capabilities. ([#577](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/577)) ([fe82500](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/fe82500f28cf8d8311502098aa6cc2e73932064e))
+* Allow specifying the user agent per-sdk implementation. ([#226](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/226)) ([e57716f](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/e57716f3f6f0ba8568e32b0937903ca46e5470ad))
+* Apply private property naming standard. Mangle browser private properties. ([#620](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/620)) ([3e6d404](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/3e6d404ae665c5cc7e5a1394a59c8f2c9d5d682a))
+* Implement Migrations. Refactor for client SDKs. ([#293](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/293)) ([c66aa6e](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/c66aa6ea0d12e1e4e565cb8378d367c31fab9c1b))
+* React-native support for auto-env attributes. ([#357](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/357)) ([deea99c](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/deea99ca2fbb3865f2ce55a83b2cf12e0ae2db5e))
+* Replace prefetch behavior with simple TTL cache ([#786](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/786)) ([48b48cf](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/48b48cf69d518dc70a557ffd1dfb0209aee0b124))
+* Switch to es2017 target to ensure native async/await. ([#231](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/231)) ([a83e4e6](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/a83e4e62d04c66105a1b0e8893640a7ca2d641e4))
+
+
+### Bug Fixes
+
+* Fix issue that caused the feature store get function impl to be called twice ([#178](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/178)) ([68f1c78](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/68f1c784c2481f7c5dead9d13b8e16a54048aaa1))
+* Fix typescript exports for both cjs and es modules ([21ea133](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/21ea13322b6d69f9baaaddf0d19c311296fc5389))
+* Log errors when there is no error event handler. ([#495](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/495)) ([6b73699](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/6b73699061efa46cd291756d3932fcf78d480f40))
+* Use clientSideAvailability instead of clientSide for filtering client side flags. ([#270](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/270)) ([2702342](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/27023429d36986466cda46aa4d95eb01c10cd455))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-server-sdk-common bumped from ^2.15.2 to ^3.0.0
+
 ## [2.0.7](https://github.com/launchdarkly/js-core/compare/akamai-edgeworker-sdk-common-v2.0.6...akamai-edgeworker-sdk-common-v2.0.7) (2025-05-21)
 
 

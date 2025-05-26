@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.3.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/node-server-sdk-otel-v1.2.2...node-server-sdk-otel-v1.3.0) (2025-05-26)
+
+
+### Features
+
+* Add OpenTelemetry support for node-server-sdk. ([#401](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/401)) ([daf4939](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/daf4939fdd53c9fe791e828783f809382673d9a5))
+* Apply private property naming standard. Mangle browser private properties. ([#620](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/620)) ([3e6d404](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/3e6d404ae665c5cc7e5a1394a59c8f2c9d5d682a))
+* Environment ID support for hooks ([#823](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/823)) ([63dc9f9](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/63dc9f9f1300c598e79be27909f8195ac66d54ef))
+
+
+### Bug Fixes
+
+* Correct store/telemetry peer deps. ([#439](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/439)) ([b963554](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/b9635541ee0a31094063075faae942698f2e8180))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/node-server-sdk bumped from 9.9.2 to 10.0.0
+  * peerDependencies
+    * @launchdarkly/node-server-sdk bumped from >=9.4.3 to >=10.0.0
+
 ## [1.2.2](https://github.com/launchdarkly/js-core/compare/node-server-sdk-otel-v1.2.1...node-server-sdk-otel-v1.2.2) (2025-05-21)
 
 

@@ -63,7 +63,11 @@ describe('LDProvider', () => {
     });
 
     await waitFor(() => {
-      expect(LD.initialize).toHaveBeenCalledWith('test-client-id', { key: 'test-context' });
+      expect(LD.initialize).toHaveBeenCalledWith(
+        'test-client-id',
+        { key: 'test-context' },
+        undefined,
+      );
     });
   });
 });

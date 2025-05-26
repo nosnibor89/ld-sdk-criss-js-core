@@ -52,7 +52,6 @@
     "esm-env": "^1.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/package": "^2.3.7",

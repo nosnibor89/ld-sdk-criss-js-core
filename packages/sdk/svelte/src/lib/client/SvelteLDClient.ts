@@ -1,6 +1,6 @@
 import { derived, type Readable, readonly, writable, type Writable } from 'svelte/store';
 
-import type { LDFlagSet } from '@launchdarkly/js-client-sdk';
+import type { LDFlagSet, LDOptions } from '@launchdarkly/js-client-sdk';
 import {
   initialize,
   type LDClient,
@@ -8,7 +8,7 @@ import {
   type LDFlagValue,
 } from '@launchdarkly/js-client-sdk/compat';
 
-export type { LDContext, LDFlagValue };
+export type { LDContext, LDFlagValue, LDOptions };
 
 /** Client ID for LaunchDarkly */
 export type LDClientID = string;
@@ -71,10 +71,11 @@ function createLD() {
    * Initializes the LaunchDarkly client.
    * @param {LDClientID} clientId - The client ID.
    * @param {LDContext} context - The user context.
+   * @param {LDOptions} options - The client options.
    * @returns {Object} An object with the initialization status store.
    */
-  function LDInitialize(clientId: LDClientID, context: LDContext) {
-    coreLdClient = initialize(clientId, context);
+  function LDInitialize(clientId: LDClientID, context: LDContext, options?: LDOptions) {
+    coreLdClient = initialize(clientId, context, options);
     coreLdClient!.on('ready', () => {
       loading.set(false);
       const rawFlags = coreLdClient!.allFlags();
@@ -94,11 +95,13 @@ function createLD() {
   }
 
   /**
-   * Identifies the user context.
-   * @param {LDContext} context - The user context.
-   * @returns {Promise} A promise that resolves when the user is identified.
+   * Identifies the user context and returns the set of feature flags for that context.
+   *
+   * @param context - The LaunchDarkly context containing user information.
+   * @returns A promise that resolves to an LDFlagSet, which is a set of feature flags for the given context.
+   * @throws Will throw an error if the client is not initialized.
    */
-  async function identify(context: LDContext) {
+  async function identify(context: LDContext): Promise<LDFlagSet> {
     isClientInitialized(coreLdClient);
     return coreLdClient.identify(context);
   }

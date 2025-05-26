@@ -25,6 +25,12 @@ Then, initialize the SDK with your client-side ID using the `LDProvider` compone
 <script>
   import { LDProvider } from '@launchdarkly/svelte-client-sdk';
   import App from './App.svelte';
+
+  // Use context relevant to your application
+  const context = {
+    kind: 'user',
+    key: 'user-key',
+  };
 </script>
 
 // Use context relevant to your application
@@ -34,7 +40,12 @@ const context = {
 };
 
 <LDProvider clientID="your-client-side-id" {context}>
-  <App />
+    <!-- Optional initializing snippet in case you want to render something else while LD client initializes -->
+    {#snippet initializing()}
+        <p>loading flags...</p>
+    {/snippet}
+
+    <App />
 </LDProvider>
 ```
 
@@ -46,12 +57,12 @@ Now you can use the `LDFlag` component to conditionally render content based on 
 </script>
 
 <LDFlag flag={'my-feature-flag'}>
-    <div slot="on">
+    {#snippet on()}
         <p>this will render if the feature flag is on</p>
-    </div>
-    <div slot="off">
+    {/snippet}
+    {#snippet off()}
         <p>this will render if the feature flag is off</p>
-    </div>
+    {/snippet}
 </LDFlag>
 ```
 
@@ -66,11 +77,11 @@ You can change the user context by using the `identify` function from the `LD` o
     import { LD } from '@launchdarkly/svelte-client-sdk';
 
     function handleLogin() {
-        LD.identify({ key: 'new-user-key' });
+        LD.identify({ kind: 'user', key: 'new-user-key' });
     }
 </script>
 
-<button on:click={handleLogin}>Login</button>
+<button onclick={handleLogin}>Login</button>
 ```
 
 ### Getting feature flag values
@@ -89,7 +100,7 @@ If you need to get the value of a flag at time of evaluation you can use the `us
     }
 </script>
 
-<button on:click={handleClick}>Check flag value</button>
+<button onclick={handleClick}>Check flag value</button>
 ```
 
 **Note:** Please note that `useFlag` function will return the current value of the flag at the time of evaluation, which means you won't get notified if the flag value changes. This is useful for cases where you need to get the value of a flag at a specific time like a function call. If you need to get notified when the flag value changes, you should use the `LDFlag` component, the `watch` function or the `flags` object depending on your use case.

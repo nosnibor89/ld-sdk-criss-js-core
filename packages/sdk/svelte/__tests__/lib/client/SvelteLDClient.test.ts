@@ -74,7 +74,7 @@ describe('launchDarkly', () => {
       it('should initialize the LaunchDarkly SDK instance', () => {
         ld.initialize(clientSideID, mockContext);
 
-        expect(initialize).toHaveBeenCalledWith('test-client-side-id', mockContext);
+        expect(initialize).toHaveBeenCalledWith('test-client-side-id', mockContext, undefined);
       });
 
       it('should register function that gets flag values when client is ready', () => {

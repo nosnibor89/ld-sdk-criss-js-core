@@ -6,6 +6,8 @@ import {
   TypeValidators,
 } from '@launchdarkly/js-client-sdk-common';
 
+import { LDPlugin } from './LDPlugin';
+
 const DEFAULT_FLUSH_INTERVAL_SECONDS = 2;
 
 /**
@@ -52,6 +54,13 @@ export interface BrowserOptions extends Omit<LDOptionsBase, 'initialConnectionMo
    * available, such as when running the SDK in a browser extension.
    */
   automaticBackgroundHandling?: boolean;
+
+  /**
+   * A list of plugins to be used with the SDK.
+   *
+   * Plugin support is currently experimental and subject to change.
+   */
+  plugins?: LDPlugin[];
 }
 
 export interface ValidatedOptions {
@@ -59,22 +68,31 @@ export interface ValidatedOptions {
   eventUrlTransformer: (url: string) => string;
   streaming?: boolean;
   automaticBackgroundHandling?: boolean;
+  plugins: LDPlugin[];
 }
 
 const optDefaults = {
   fetchGoals: true,
   eventUrlTransformer: (url: string) => url,
   streaming: undefined,
+  plugins: [],
 };
 
 const validators: { [Property in keyof BrowserOptions]: TypeValidator | undefined } = {
   fetchGoals: TypeValidators.Boolean,
   eventUrlTransformer: TypeValidators.Function,
   streaming: TypeValidators.Boolean,
+  plugins: TypeValidators.createTypeArray('LDPlugin', {}),
 };
 
-export function filterToBaseOptions(opts: BrowserOptions): LDOptionsBase {
-  const baseOptions: LDOptionsBase = { ...opts };
+function withBrowserDefaults(opts: BrowserOptions): BrowserOptions {
+  const output = { ...opts };
+  output.flushInterval ??= DEFAULT_FLUSH_INTERVAL_SECONDS;
+  return output;
+}
+
+export function filterToBaseOptionsWithDefaults(opts: BrowserOptions): LDOptionsBase {
+  const baseOptions: LDOptionsBase = withBrowserDefaults(opts);
 
   // Remove any browser specific configuration keys so we don't get warnings from
   // the base implementation for unknown configuration.
@@ -84,14 +102,11 @@ export function filterToBaseOptions(opts: BrowserOptions): LDOptionsBase {
   return baseOptions;
 }
 
-function applyBrowserDefaults(opts: BrowserOptions) {
-  // eslint-disable-next-line no-param-reassign
-  opts.flushInterval ??= DEFAULT_FLUSH_INTERVAL_SECONDS;
-}
-
-export default function validateOptions(opts: BrowserOptions, logger: LDLogger): ValidatedOptions {
+export default function validateBrowserOptions(
+  opts: BrowserOptions,
+  logger: LDLogger,
+): ValidatedOptions {
   const output: ValidatedOptions = { ...optDefaults };
-  applyBrowserDefaults(output);
 
   Object.entries(validators).forEach((entry) => {
     const [key, validator] = entry as [keyof BrowserOptions, TypeValidator];

@@ -1,5 +1,66 @@
 # Changelog
 
+## [1.0.8](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.7...browser-telemetry-v1.0.8) (2025-05-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.6.0 to 0.7.0
+
+## [1.0.7](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.6...browser-telemetry-v1.0.7) (2025-04-29)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.5.3 to 0.6.0
+
+## [1.0.6](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.5...browser-telemetry-v1.0.6) (2025-04-16)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.5.2 to 0.5.3
+
+## [1.0.5](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.4...browser-telemetry-v1.0.5) (2025-04-15)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.5.1 to 0.5.2
+
+## [1.0.4](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.3...browser-telemetry-v1.0.4) (2025-04-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.5.0 to 0.5.1
+
+## [1.0.3](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.2...browser-telemetry-v1.0.3) (2025-03-26)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-client-sdk bumped from 0.4.1 to 0.5.0
+
+## [1.0.2](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.1...browser-telemetry-v1.0.2) (2025-02-28)
+
+
+### Bug Fixes
+
+* Fix a bug where the incorrect src lines may have been captured. ([#792](https://github.com/launchdarkly/js-core/issues/792)) ([1f44dd5](https://github.com/launchdarkly/js-core/commit/1f44dd5bad3cc108beda5fb23d9b2b540812e7e6))
+
 ## [1.0.1](https://github.com/launchdarkly/js-core/compare/browser-telemetry-v1.0.0...browser-telemetry-v1.0.1) (2025-02-18)
 
 
@@ -53,7 +114,7 @@
 
 ### ⚠ BREAKING CHANGES
 
-* Updated AI config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697))
+* Updated AI Config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697))
 
 ### Features
 
@@ -73,7 +134,7 @@
 * Random uuid for telemetry package. ([#689](https://github.com/launchdarkly/js-core/issues/689)) ([4cf34f9](https://github.com/launchdarkly/js-core/commit/4cf34f94f9d1a1949462187d09e7d84b096edb15))
 * Rename initializeTelemetryInstance to initTelemetryInstance for consistency with initTelemetry. ([257734f](https://github.com/launchdarkly/js-core/commit/257734f74d5c36d9e68441d6ca7dd7d1a6a2ba9b))
 * Source maps with inline sources for browser-telemetry. ([#735](https://github.com/launchdarkly/js-core/issues/735)) ([1656a85](https://github.com/launchdarkly/js-core/commit/1656a856e412a661af26ed08620aebedf2064ae1))
-* Updated AI config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697)) ([cd72ea8](https://github.com/launchdarkly/js-core/commit/cd72ea8193888b0635b5beffa0a877b18294777e))
+* Updated AI Config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697)) ([cd72ea8](https://github.com/launchdarkly/js-core/commit/cd72ea8193888b0635b5beffa0a877b18294777e))
 * Vendor TraceKit ([d1b364e](https://github.com/launchdarkly/js-core/commit/d1b364eaf08502b8b7d65c124833b617577fd081))
 
 

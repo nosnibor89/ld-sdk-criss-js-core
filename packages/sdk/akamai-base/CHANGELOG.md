@@ -30,6 +30,94 @@ All notable changes to the LaunchDarkly SDK for Akamai Workers will be documente
     * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^1.1.1 to ^1.1.2
     * @launchdarkly/js-server-sdk-common bumped from ^2.2.1 to ^2.2.2
 
+## [3.0.7](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.6...akamai-server-base-sdk-v3.0.7) (2025-05-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.6 to ^2.0.7
+    * @launchdarkly/js-server-sdk-common bumped from ^2.15.1 to ^2.15.2
+
+## [3.0.6](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.5...akamai-server-base-sdk-v3.0.6) (2025-04-29)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.5 to ^2.0.6
+    * @launchdarkly/js-server-sdk-common bumped from ^2.15.0 to ^2.15.1
+
+## [3.0.5](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.4...akamai-server-base-sdk-v3.0.5) (2025-04-16)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.4 to ^2.0.5
+    * @launchdarkly/js-server-sdk-common bumped from ^2.14.0 to ^2.15.0
+
+## [3.0.4](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.3...akamai-server-base-sdk-v3.0.4) (2025-04-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.3 to ^2.0.4
+    * @launchdarkly/js-server-sdk-common bumped from ^2.13.0 to ^2.14.0
+
+## [3.0.3](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.2...akamai-server-base-sdk-v3.0.3) (2025-03-26)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.2 to ^2.0.3
+    * @launchdarkly/js-server-sdk-common bumped from ^2.12.1 to ^2.13.0
+
+## [3.0.2](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.1...akamai-server-base-sdk-v3.0.2) (2025-03-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.1 to ^2.0.2
+    * @launchdarkly/js-server-sdk-common bumped from ^2.12.0 to ^2.12.1
+
+## [3.0.1](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v3.0.0...akamai-server-base-sdk-v3.0.1) (2025-03-17)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.0 to ^2.0.1
+    * @launchdarkly/js-server-sdk-common bumped from ^2.11.1 to ^2.12.0
+
+## [3.0.0](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v2.1.23...akamai-server-base-sdk-v3.0.0) (2025-02-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* Replace prefetch behavior with simple TTL cache ([#786](https://github.com/launchdarkly/js-core/issues/786))
+
+### Features
+
+* Replace prefetch behavior with simple TTL cache ([#786](https://github.com/launchdarkly/js-core/issues/786)) ([48b48cf](https://github.com/launchdarkly/js-core/commit/48b48cf69d518dc70a557ffd1dfb0209aee0b124))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^1.4.1 to ^2.0.0
+
 ## [2.1.23](https://github.com/launchdarkly/js-core/compare/akamai-server-base-sdk-v2.1.22...akamai-server-base-sdk-v2.1.23) (2025-02-18)
 
 

@@ -1,6 +1,6 @@
 import { LDLogger } from '@launchdarkly/js-sdk-common';
 
-import { LDDataSourceUpdates } from '../../src/api/subsystems';
+import { LDTransactionalDataSourceUpdates } from '../../src/api/subsystems';
 import { createPayloadListener } from '../../src/data_sources/createPayloadListenerFDv2';
 
 jest.mock('../../src/store/serialization');
@@ -80,28 +80,37 @@ const changesTransferPayload = {
   ],
 };
 
+const changesTransferNone = {
+  id: 'payloadID',
+  version: 99,
+  basis: false,
+  updates: [],
+};
+
 describe('createPayloadListenerFDv2', () => {
-  let dataSourceUpdates: LDDataSourceUpdates;
-  let basisRecieved: jest.Mock;
+  let dataSourceUpdates: LDTransactionalDataSourceUpdates;
+  let basisReceived: jest.Mock;
 
   beforeEach(() => {
     dataSourceUpdates = {
       init: jest.fn(),
       upsert: jest.fn(),
+      applyChanges: jest.fn(),
     };
-    basisRecieved = jest.fn();
+    basisReceived = jest.fn();
   });
 
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  test('data source init is called', async () => {
-    const listener = createPayloadListener(dataSourceUpdates, logger, basisRecieved);
+  test('data source updates called with basis true', async () => {
+    const listener = createPayloadListener(dataSourceUpdates, logger, basisReceived);
     listener(fullTransferPayload);
 
     expect(logger.debug).toBeCalledWith(expect.stringMatching(/initializing/i));
-    expect(dataSourceUpdates.init).toBeCalledWith(
+    expect(dataSourceUpdates.applyChanges).toBeCalledWith(
+      true,
       {
         features: {
           flagkey: { key: 'flagkey', version: 1 },
@@ -110,33 +119,51 @@ describe('createPayloadListenerFDv2', () => {
           segkey: { key: 'segkey', version: 2 },
         },
       },
-      basisRecieved,
+      basisReceived,
+      undefined,
+      'initial',
     );
   });
 
-  test('data source upsert is called', async () => {
-    const listener = createPayloadListener(dataSourceUpdates, logger, basisRecieved);
+  test('data source updates called with basis false', async () => {
+    const listener = createPayloadListener(dataSourceUpdates, logger, basisReceived);
     listener(changesTransferPayload);
 
     expect(logger.debug).toBeCalledWith(expect.stringMatching(/updating/i));
-    expect(dataSourceUpdates.upsert).toHaveBeenCalledTimes(3);
-    expect(dataSourceUpdates.upsert).toHaveBeenNthCalledWith(
+    expect(dataSourceUpdates.applyChanges).toHaveBeenCalledTimes(1);
+    expect(dataSourceUpdates.applyChanges).toHaveBeenNthCalledWith(
       1,
-      { namespace: 'features' },
-      { key: 'flagkey', version: 1 },
-      expect.anything(),
+      false,
+      {
+        features: {
+          deletedFlag: {
+            key: 'deletedFlag',
+            deleted: true,
+            version: 3,
+          },
+          flagkey: {
+            key: 'flagkey',
+            version: 1,
+          },
+        },
+        segments: {
+          segkey: {
+            key: 'segkey',
+            version: 2,
+          },
+        },
+      },
+      basisReceived,
+      undefined,
+      'changes',
     );
-    expect(dataSourceUpdates.upsert).toHaveBeenNthCalledWith(
-      2,
-      { namespace: 'segments' },
-      { key: 'segkey', version: 2 },
-      expect.anything(),
-    );
-    expect(dataSourceUpdates.upsert).toHaveBeenNthCalledWith(
-      3,
-      { namespace: 'features' },
-      { key: 'deletedFlag', version: 3, deleted: true },
-      expect.anything(),
-    );
+  });
+
+  test('data source updates not called when basis is false and changes are empty', async () => {
+    const listener = createPayloadListener(dataSourceUpdates, logger, basisReceived);
+    listener(changesTransferNone);
+
+    expect(logger.debug).toBeCalledWith(expect.stringMatching(/ignoring/i));
+    expect(dataSourceUpdates.applyChanges).toHaveBeenCalledTimes(0);
   });
 });

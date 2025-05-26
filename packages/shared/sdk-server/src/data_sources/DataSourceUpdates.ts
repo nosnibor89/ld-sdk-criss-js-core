@@ -1,3 +1,5 @@
+import { internal } from '@launchdarkly/js-sdk-common';
+
 import { DataKind } from '../api/interfaces';
 import {
   LDDataSourceUpdates,
@@ -27,7 +29,7 @@ interface TypeWithRuleClauses {
   ];
 }
 
-function computeDependencies(namespace: string, item: LDFeatureStoreItem) {
+export function computeDependencies(namespace: string, item: LDFeatureStoreItem) {
   const ret = new NamespacedDataSet<boolean>();
   const isFlag = namespace === VersionedDataKinds.Features.namespace;
   const isSegment = namespace === VersionedDataKinds.Segments.namespace;
@@ -66,46 +68,54 @@ export default class DataSourceUpdates implements LDDataSourceUpdates {
     private readonly _onChange: (key: string) => void,
   ) {}
 
-  init(allData: LDFeatureStoreDataStorage, callback: () => void): void {
+  init(
+    allData: LDFeatureStoreDataStorage,
+    callback: () => void,
+    initMetadata?: internal.InitMetadata,
+  ): void {
     const checkForChanges = this._hasEventListeners();
     const doInit = (oldData?: LDFeatureStoreDataStorage) => {
-      this._featureStore.init(allData, () => {
-        // Defer change events so they execute after the callback.
-        Promise.resolve().then(() => {
-          this._dependencyTracker.reset();
+      this._featureStore.init(
+        allData,
+        () => {
+          // Defer change events so they execute after the callback.
+          Promise.resolve().then(() => {
+            this._dependencyTracker.reset();
 
-          Object.entries(allData).forEach(([namespace, items]) => {
-            Object.keys(items || {}).forEach((key) => {
-              const item = items[key];
-              this._dependencyTracker.updateDependenciesFrom(
-                namespace,
-                key,
-                computeDependencies(namespace, item),
-              );
-            });
-          });
-
-          if (checkForChanges) {
-            const updatedItems = new NamespacedDataSet<boolean>();
-            Object.keys(allData).forEach((namespace) => {
-              const oldDataForKind = oldData?.[namespace] || {};
-              const newDataForKind = allData[namespace];
-              const mergedData = { ...oldDataForKind, ...newDataForKind };
-              Object.keys(mergedData).forEach((key) => {
-                this.addIfModified(
+            Object.entries(allData).forEach(([namespace, items]) => {
+              Object.keys(items || {}).forEach((key) => {
+                const item = items[key];
+                this._dependencyTracker.updateDependenciesFrom(
                   namespace,
                   key,
-                  oldDataForKind && oldDataForKind[key],
-                  newDataForKind && newDataForKind[key],
-                  updatedItems,
+                  computeDependencies(namespace, item),
                 );
               });
             });
-            this.sendChangeEvents(updatedItems);
-          }
-        });
-        callback?.();
-      });
+
+            if (checkForChanges) {
+              const updatedItems = new NamespacedDataSet<boolean>();
+              Object.keys(allData).forEach((namespace) => {
+                const oldDataForKind = oldData?.[namespace] || {};
+                const newDataForKind = allData[namespace];
+                const mergedData = { ...oldDataForKind, ...newDataForKind };
+                Object.keys(mergedData).forEach((key) => {
+                  this.addIfModified(
+                    namespace,
+                    key,
+                    oldDataForKind && oldDataForKind[key],
+                    newDataForKind && newDataForKind[key],
+                    updatedItems,
+                  );
+                });
+              });
+              this.sendChangeEvents(updatedItems);
+            }
+          });
+          callback?.();
+        },
+        initMetadata,
+      );
     };
 
     if (checkForChanges) {

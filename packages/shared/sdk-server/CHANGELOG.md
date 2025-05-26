@@ -8,6 +8,90 @@ All notable changes to `@launchdarkly/js-server-sdk-common` will be documented i
   * dependencies
     * @launchdarkly/js-sdk-common bumped from 2.3.0 to 2.3.1
 
+## [2.15.2](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.15.1...js-server-sdk-common-v2.15.2) (2025-05-21)
+
+
+### Bug Fixes
+
+* corrected location of payloadFilterKey in LDOptions ([#863](https://github.com/launchdarkly/js-core/issues/863)) ([cc825d4](https://github.com/launchdarkly/js-core/commit/cc825d499b00a46cc887c1804088fbf4cdf082a0))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.17.0 to 2.18.0
+
+## [2.15.1](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.15.0...js-server-sdk-common-v2.15.1) (2025-04-29)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.16.0 to 2.17.0
+
+## [2.15.0](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.14.0...js-server-sdk-common-v2.15.0) (2025-04-16)
+
+
+### Features
+
+* Environment ID support for hooks ([#823](https://github.com/launchdarkly/js-core/issues/823)) ([63dc9f9](https://github.com/launchdarkly/js-core/commit/63dc9f9f1300c598e79be27909f8195ac66d54ef))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.15.0 to 2.16.0
+
+## [2.14.0](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.13.0...js-server-sdk-common-v2.14.0) (2025-04-08)
+
+
+### Features
+
+* Option to use gzip to compress event ([#814](https://github.com/launchdarkly/js-core/issues/814)) ([4e91431](https://github.com/launchdarkly/js-core/commit/4e914317d31378e2a1eaed5aa03e0ac6beac43d5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.14.0 to 2.15.0
+
+## [2.13.0](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.12.1...js-server-sdk-common-v2.13.0) (2025-03-26)
+
+
+### Features
+
+* Support inline context for custom and migration events ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
+
+### Bug Fixes
+
+* Deprecate LDMigrationOpEvent.contextKeys in favor of LDMigrationOpEvent.context ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.13.0 to 2.14.0
+
+## [2.12.1](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.12.0...js-server-sdk-common-v2.12.1) (2025-03-21)
+
+
+### Bug Fixes
+
+* Fix cancelling timeout when waitForInitialization throws an exception ([#808](https://github.com/launchdarkly/js-core/issues/808)) ([bb3c950](https://github.com/launchdarkly/js-core/commit/bb3c95041fc41100b11eb698c7662b2442d46fd1))
+
+## [2.12.0](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.11.1...js-server-sdk-common-v2.12.0) (2025-03-17)
+
+
+### Features
+
+* Export internalServer module for internal LD usage ([#804](https://github.com/launchdarkly/js-core/issues/804)) ([ec43ac8](https://github.com/launchdarkly/js-core/commit/ec43ac8af03c778d8d0ac2bd6213f9d54bf011ac))
+
 ## [2.11.1](https://github.com/launchdarkly/js-core/compare/js-server-sdk-common-v2.11.0...js-server-sdk-common-v2.11.1) (2025-02-18)
 
 

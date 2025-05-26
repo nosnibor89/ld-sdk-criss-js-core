@@ -9,6 +9,8 @@
     "packages/sdk/server-node",
     "packages/sdk/cloudflare",
     "packages/sdk/cloudflare/example",
+    "packages/sdk/fastly",
+    "packages/sdk/fastly/example",
     "packages/sdk/react-native",
     "packages/sdk/react-native/example",
     "packages/sdk/react-universal",
@@ -31,7 +33,8 @@
     "packages/sdk/server-ai",
     "packages/sdk/server-ai/examples/bedrock",
     "packages/sdk/server-ai/examples/openai",
-    "packages/telemetry/browser-telemetry"
+    "packages/telemetry/browser-telemetry",
+    "contract-tests"
   ],
   "private": true,
   "scripts": {
@@ -43,9 +46,10 @@
     "lint:fix": "yarn run lint -- --fix",
     "test": "echo Please run tests for individual packages.",
     "coverage": "npm run test -- --coverage",
-    "contract-test-service": "npm --prefix contract-tests install && npm --prefix contract-tests start",
+    "contract-test-service-build": "yarn workspaces foreach -pR --topological-dev --from 'node-server-sdk-contract-tests' run build",
+    "contract-test-service": "yarn workspace node-server-sdk-contract-tests start",
     "contract-test-harness": "curl -s https://raw.githubusercontent.com/launchdarkly/sdk-test-harness/master/downloader/run.sh \\ | VERSION=v2 PARAMS=\"-url http://localhost:8000 -debug -stop-service-at-end $TEST_HARNESS_PARAMS\" sh",
-    "contract-tests": "npm run contract-test-service & npm run contract-test-harness",
+    "contract-tests": "yarn contract-test-service-build && yarn contract-test-service & yarn contract-test-harness",
     "prettier": "npx prettier --write \"**/*.{js,ts,tsx,json,yaml,yml,md}\" --log-level warn",
     "check": "yarn && yarn prettier && yarn lint && tsc && yarn build"
   },
@@ -67,6 +71,7 @@
   "packageManager": "yarn@3.4.1",
   "//": "Pin jsonc-parser because v3.3.0 breaks rollup-plugin-esbuild",
   "resolutions": {
-    "jsonc-parser": "3.2.0"
+    "jsonc-parser": "3.2.0",
+    "parse5": "7.2.1"
   }
 }

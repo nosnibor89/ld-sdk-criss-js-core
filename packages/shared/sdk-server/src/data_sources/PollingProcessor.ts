@@ -1,6 +1,7 @@
 import {
   DataSourceErrorKind,
   httpErrorMessage,
+  internal,
   isHttpRecoverable,
   LDLogger,
   LDPollingError,
@@ -9,12 +10,13 @@ import {
 } from '@launchdarkly/js-sdk-common';
 
 import { LDDataSourceUpdates } from '../api/subsystems';
-import Configuration from '../options/Configuration';
 import { deserializePoll } from '../store';
 import VersionedDataKinds from '../store/VersionedDataKinds';
 import Requestor from './Requestor';
 
 export type PollingErrorHandler = (err: LDPollingError) => void;
+
+const { initMetadataFromHeaders } = internal;
 
 /**
  * @internal
@@ -22,22 +24,16 @@ export type PollingErrorHandler = (err: LDPollingError) => void;
 export default class PollingProcessor implements subsystem.LDStreamProcessor {
   private _stopped = false;
 
-  private _logger?: LDLogger;
-
-  private _pollInterval: number;
-
   private _timeoutHandle: any;
 
   constructor(
-    config: Configuration,
     private readonly _requestor: Requestor,
+    private readonly _pollInterval: number,
     private readonly _featureStore: LDDataSourceUpdates,
+    private readonly _logger?: LDLogger,
     private readonly _initSuccessHandler: VoidFunction = () => {},
     private readonly _errorHandler?: PollingErrorHandler,
-  ) {
-    this._logger = config.logger;
-    this._pollInterval = config.pollInterval;
-  }
+  ) {}
 
   private _poll() {
     if (this._stopped) {
@@ -57,7 +53,7 @@ export default class PollingProcessor implements subsystem.LDStreamProcessor {
 
     const startTime = Date.now();
     this._logger?.debug('Polling LaunchDarkly for feature flag updates');
-    this._requestor.requestAllData((err, body) => {
+    this._requestor.requestAllData((err, body, headers) => {
       const elapsed = Date.now() - startTime;
       const sleepFor = Math.max(this._pollInterval * 1000 - elapsed, 0);
 
@@ -86,13 +82,17 @@ export default class PollingProcessor implements subsystem.LDStreamProcessor {
             [VersionedDataKinds.Features.namespace]: parsed.flags,
             [VersionedDataKinds.Segments.namespace]: parsed.segments,
           };
-          this._featureStore.init(initData, () => {
-            this._initSuccessHandler();
-            // Triggering the next poll after the init has completed.
-            this._timeoutHandle = setTimeout(() => {
-              this._poll();
-            }, sleepFor);
-          });
+          this._featureStore.init(
+            initData,
+            () => {
+              this._initSuccessHandler();
+              // Triggering the next poll after the init has completed.
+              this._timeoutHandle = setTimeout(() => {
+                this._poll();
+              }, sleepFor);
+            },
+            initMetadataFromHeaders(headers),
+          );
           // The poll will be triggered by  the feature store initialization
           // completing.
           return;

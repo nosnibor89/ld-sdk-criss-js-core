@@ -38,10 +38,12 @@ export default class TestHarnessWebSocket {
             'service-endpoints',
             'tags',
             'user-type',
-            'inline-context',
+            'inline-context-all',
             'anonymous-redaction',
             'strongly-typed',
             'client-prereq-events',
+            'client-per-context-summaries',
+            'track-hooks',
           ];
 
           break;

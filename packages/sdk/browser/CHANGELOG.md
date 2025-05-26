@@ -1,5 +1,82 @@
 # Changelog
 
+## [0.7.0](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.6.0...js-client-sdk-v0.7.0) (2025-05-21)
+
+
+### Features
+
+* Add support for per-context summary events. ([#859](https://github.com/launchdarkly/js-core/issues/859)) ([c9fa5c4](https://github.com/launchdarkly/js-core/commit/c9fa5c45f3ac2cbaad2f2e6312d5231c3f671d98))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-client-sdk-common bumped from 1.13.0 to 1.14.0
+
+## [0.6.0](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.5.3...js-client-sdk-v0.6.0) (2025-04-29)
+
+
+### Features
+
+* Add client-side SDK plugin support. ([#834](https://github.com/launchdarkly/js-core/issues/834)) ([a843a33](https://github.com/launchdarkly/js-core/commit/a843a33e97dcab706a0034bd1fd1e3d2f78a9262))
+
+
+### Bug Fixes
+
+* Client SDKs should use wrapper information. ([#836](https://github.com/launchdarkly/js-core/issues/836)) ([1e0cf6a](https://github.com/launchdarkly/js-core/commit/1e0cf6a0f77f8cfe6a7a0e675fc6490ea52a5b07))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-client-sdk-common bumped from 1.12.6 to 1.13.0
+
+## [0.5.3](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.5.2...js-client-sdk-v0.5.3) (2025-04-16)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-client-sdk-common bumped from 1.12.5 to 1.12.6
+
+## [0.5.2](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.5.1...js-client-sdk-v0.5.2) (2025-04-15)
+
+
+### Bug Fixes
+
+* Handle default flush interval for browser SDK. ([#822](https://github.com/launchdarkly/js-core/issues/822)) ([2c1cc7a](https://github.com/launchdarkly/js-core/commit/2c1cc7a117fd011a329dfcc5332fddf7fd11eff9))
+
+## [0.5.1](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.5.0...js-client-sdk-v0.5.1) (2025-04-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-client-sdk-common bumped from 1.12.4 to 1.12.5
+
+## [0.5.0](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.4.1...js-client-sdk-v0.5.0) (2025-03-26)
+
+
+### Features
+
+* Support inline context for custom and migration events ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
+
+### Bug Fixes
+
+* Deprecate LDMigrationOpEvent.contextKeys in favor of LDMigrationOpEvent.context ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-client-sdk-common bumped from 1.12.3 to 1.12.4
+
 ## [0.4.1](https://github.com/launchdarkly/js-core/compare/js-client-sdk-v0.4.0...js-client-sdk-v0.4.1) (2025-02-06)
 
 

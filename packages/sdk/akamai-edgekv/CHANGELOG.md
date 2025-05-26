@@ -31,6 +31,32 @@ All notable changes to the LaunchDarkly SDK for Akamai Workers will be documente
     * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^1.1.1 to ^1.1.2
     * @launchdarkly/js-server-sdk-common bumped from ^2.2.1 to ^2.2.2
 
+## [1.5.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/akamai-server-edgekv-sdk-v1.4.9...akamai-server-edgekv-sdk-v1.5.0) (2025-05-26)
+
+
+### Features
+
+* Add cacheTtlMs option ([#760](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/760)) ([4f961dd](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/4f961dd16fd10f5bb55dd2116d26b218944bfeb2))
+* Apply private property naming standard. Mangle browser private properties. ([#620](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/620)) ([3e6d404](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/3e6d404ae665c5cc7e5a1394a59c8f2c9d5d682a))
+* React-native support for auto-env attributes. ([#357](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/357)) ([deea99c](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/deea99ca2fbb3865f2ce55a83b2cf12e0ae2db5e))
+* Release v1.0.0 of Akamai SDKs ([#196](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/196)) ([7f8c827](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/7f8c827c71ac7744b88dc849325e95db8144892f))
+* Switch to es2017 target to ensure native async/await. ([#231](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/231)) ([a83e4e6](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/a83e4e62d04c66105a1b0e8893640a7ca2d641e4))
+* Upgrade edgekv bundled files to 0.6.3 ([#610](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/610)) ([58dfec6](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/58dfec68c268390852cc511191c7f9b47ec3e668))
+
+
+### Bug Fixes
+
+* Fix issue that caused the feature store get function impl to be called twice ([#178](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/178)) ([68f1c78](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/68f1c784c2481f7c5dead9d13b8e16a54048aaa1))
+* Fix typescript exports for both cjs and es modules ([21ea133](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/21ea13322b6d69f9baaaddf0d19c311296fc5389))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/akamai-edgeworker-sdk-common bumped from ^2.0.7 to ^3.0.0
+    * @launchdarkly/js-server-sdk-common bumped from ^2.15.2 to ^3.0.0
+
 ## [1.4.9](https://github.com/launchdarkly/js-core/compare/akamai-server-edgekv-sdk-v1.4.8...akamai-server-edgekv-sdk-v1.4.9) (2025-05-21)
 
 

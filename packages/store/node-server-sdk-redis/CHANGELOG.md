@@ -90,6 +90,37 @@
   * devDependencies
     * @launchdarkly/node-server-sdk bumped from 9.2.1 to 9.2.2
 
+## [5.0.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/node-server-sdk-redis-v4.2.11...node-server-sdk-redis-v5.0.0) (2025-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* Implement Migrations. Refactor for client SDKs. ([#293](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/293))
+
+### Features
+
+* Apply private property naming standard. Mangle browser private properties. ([#620](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/620)) ([3e6d404](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/3e6d404ae665c5cc7e5a1394a59c8f2c9d5d682a))
+* Implement Migrations. Refactor for client SDKs. ([#293](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/293)) ([c66aa6e](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/c66aa6ea0d12e1e4e565cb8378d367c31fab9c1b))
+* Node server SDK major release. ([#180](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/180)) ([2e02f72](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/2e02f72ec43e86fb203d32742b78a8e4a905a114))
+* React-native support for auto-env attributes. ([#357](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/357)) ([deea99c](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/deea99ca2fbb3865f2ce55a83b2cf12e0ae2db5e))
+* Switch to es2017 target to ensure native async/await. ([#231](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/231)) ([a83e4e6](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/a83e4e62d04c66105a1b0e8893640a7ca2d641e4))
+
+
+### Bug Fixes
+
+* Correct store/telemetry peer deps. ([#439](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/439)) ([b963554](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/b9635541ee0a31094063075faae942698f2e8180))
+* Fix peer dependency version for node store integrations. ([#186](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/186)) ([1e7548b](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/1e7548b01da4937a72b3d40264ab0238fd835b8b))
+* Fix typings for big segment store factories. ([#413](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/413)) ([723804b](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/723804bb7db19f485d84940715c69e34cc08062f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/node-server-sdk bumped from 9.9.2 to 10.0.0
+  * peerDependencies
+    * @launchdarkly/node-server-sdk bumped from >=9.4.3 to >=10.0.0
+
 ## [4.2.11](https://github.com/launchdarkly/js-core/compare/node-server-sdk-redis-v4.2.10...node-server-sdk-redis-v4.2.11) (2025-05-21)
 
 

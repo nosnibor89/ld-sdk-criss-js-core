@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.2.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/fastly-server-sdk-v0.1.7...fastly-server-sdk-v0.2.0) (2025-05-26)
+
+
+### Features
+
+* Add Fastly Edge SDK ([#723](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/723)) ([02e0eee](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/02e0eeea8678e66911eb28c5ccca59e4956a1457))
+
+
+### Bug Fixes
+
+* Remove logging of SDK option configurations ([#806](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/806)) ([a76d196](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/a76d19690a7ef5932c36bfc974affc0a192c2d4f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.15.2 to 3.0.0
+
 ## [0.1.7](https://github.com/launchdarkly/js-core/compare/fastly-server-sdk-v0.1.6...fastly-server-sdk-v0.1.7) (2025-05-21)
 
 

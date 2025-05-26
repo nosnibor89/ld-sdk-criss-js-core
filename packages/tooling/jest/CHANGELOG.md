@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.0](https://github.com/nosnibor89/ld-sdk-criss-js-core/compare/jest-v0.1.7...jest-v0.1.0) (2025-05-26)
+
+
+### Features
+
+* Implement jest mocks for react-native. ([#535](https://github.com/nosnibor89/ld-sdk-criss-js-core/issues/535)) ([aee09c8](https://github.com/nosnibor89/ld-sdk-criss-js-core/commit/aee09c87e1810795108157dcd9ab8cfb9fe05020))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/react-native-client-sdk bumped from ~10.10.2 to ~10.11.0
+
 ## [0.1.7](https://github.com/launchdarkly/js-core/compare/jest-v0.1.6...jest-v0.1.7) (2025-05-22)
 
 

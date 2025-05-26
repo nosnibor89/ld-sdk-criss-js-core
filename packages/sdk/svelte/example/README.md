@@ -14,20 +14,20 @@ npm install
 yarn install
 ```
 
-Next, create a `.env` file in the root of the project and add your LaunchDarkly client-side ID, flag key. You can obtain these from any LaunchDarkly project/environment you choose.
+Next, create a `.env` file in the root of the project and add your LaunchDarkly client-side ID, and flag key. You can obtain these from any LaunchDarkly project/environment you choose.
 
 ```bash
 PUBLIC_LD_CLIENT_ID=your-client-side-id
 PUBLIC_LD_FLAG_KEY=your-flag-key
 
 # Used for Playwright automated tests, you can default this to false
-PUBLIC_AUTOMATED_TEST=false
+PUBLIC_AUTOMATED_TESTING=false
 ```
 
 Notes:
 
 1. The flags specified by `PUBLIC_LD_FLAG_KEY` must be boolean flag.
-2. The `PUBLIC_AUTOMATED_TEST` should be set to `true` only when running Playwright automated tests and `false` otherwise.
+2. The `PUBLIC_AUTOMATED_TESTING` should be set to `true` only when running Playwright automated tests and `false` otherwise.
 
 ## Running the Project
 
@@ -53,7 +53,7 @@ Then, use the following command to run the tests:
 yarn test
 ```
 
-This will set the `PUBLIC_AUTOMATED_TEST` environment variable and execute the Playwright tests configured for the project. Make sure the development server is running before executing the tests.
+This will set the `PUBLIC_AUTOMATED_TESTING` environment variable and execute the Playwright tests configured for the project. Make sure the development server is running before executing the tests.
 
 ### Role of `LDProvider`
 

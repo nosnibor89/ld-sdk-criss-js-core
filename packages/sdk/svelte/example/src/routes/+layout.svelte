@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { LDProvider, type LDOptions } from '@launchdarkly/svelte-client-sdk';
-	import { PUBLIC_LD_CLIENT_ID, PUBLIC_AUTOMATED_TEST } from '$env/static/public';
+	import { PUBLIC_LD_CLIENT_ID, PUBLIC_AUTOMATED_TESTING } from '$env/static/public';
 	interface Props {
 		children?: Snippet;
 	}
@@ -16,7 +16,7 @@
 
 	const options: LDOptions = {
 		// Enable streaming only when not in automated testing. This will allow mocking flag variations.
-		streaming: PUBLIC_AUTOMATED_TEST === 'false',
+		streaming: PUBLIC_AUTOMATED_TESTING === 'false',
 	};
 </script>
 

@@ -232,9 +232,10 @@ export default class LDClientImpl implements LDClient {
             this._config.streamInitialReconnectDelay,
           )
         : new PollingProcessor(
-            config,
             new Requestor(config, this._platform.requests, baseHeaders),
+            config.pollInterval,
             dataSourceUpdates,
+            config.logger,
             () => this._initSuccess(),
             (e) => this._dataSourceErrorHandler(e),
           );
@@ -344,6 +345,7 @@ export default class LDClientImpl implements LDClient {
               },
             );
           }),
+        this._featureStore.getInitMetaData?.()?.environmentId,
       )
       .then((detail) => {
         callback?.(null, detail.value);
@@ -375,6 +377,7 @@ export default class LDClientImpl implements LDClient {
             },
           );
         }),
+      this._featureStore.getInitMetaData?.()?.environmentId,
     );
   }
 
@@ -409,6 +412,7 @@ export default class LDClientImpl implements LDClient {
             typeChecker,
           );
         }),
+      this._featureStore.getInitMetaData?.()?.environmentId,
     );
   }
 
@@ -470,6 +474,7 @@ export default class LDClientImpl implements LDClient {
               },
             );
           }),
+        this._featureStore.getInitMetaData?.()?.environmentId,
       )
       .then((detail) => detail.value);
   }
@@ -541,6 +546,7 @@ export default class LDClientImpl implements LDClient {
             },
           );
         }),
+      this._featureStore.getInitMetaData?.()?.environmentId,
     );
   }
 
@@ -549,7 +555,6 @@ export default class LDClientImpl implements LDClient {
     context: LDContext,
     defaultValue: LDMigrationStage,
   ): Promise<{ detail: LDEvaluationDetail; migration: LDMigrationVariation }> {
-    const convertedContext = Context.fromLDContext(context);
     const res = await new Promise<{ detail: LDEvaluationDetail; flag?: Flag }>((resolve) => {
       this._evaluateIfPossible(
         key,
@@ -581,7 +586,6 @@ export default class LDClientImpl implements LDClient {
     });
 
     const { detail, flag } = res;
-    const contextKeys = convertedContext.valid ? convertedContext.kindsAndKeys : {};
     const checkRatio = flag?.migration?.checkRatio;
     const samplingRatio = flag?.samplingRatio;
 
@@ -591,7 +595,7 @@ export default class LDClientImpl implements LDClient {
         value: detail.value as LDMigrationStage,
         tracker: new MigrationOpTracker(
           key,
-          contextKeys,
+          context,
           defaultValue,
           detail.value,
           detail.reason,
@@ -617,6 +621,7 @@ export default class LDClientImpl implements LDClient {
       defaultValue,
       MIGRATION_VARIATION_METHOD_NAME,
       () => this._migrationVariationInternal(key, context, defaultValue),
+      this._featureStore.getInitMetaData?.()?.environmentId,
     );
 
     return res.migration;
@@ -940,14 +945,16 @@ export default class LDClientImpl implements LDClient {
     if (timeout) {
       const cancelableTimeout = cancelableTimedPromise(timeout, 'waitForInitialization');
       return Promise.race([
-        basePromise.then(() => cancelableTimeout.cancel()).then(() => this),
+        basePromise.then(() => this),
         cancelableTimeout.promise.then(() => this),
-      ]).catch((reason) => {
-        if (reason instanceof LDTimeoutError) {
-          logger?.error(reason.message);
-        }
-        throw reason;
-      });
+      ])
+        .catch((reason) => {
+          if (reason instanceof LDTimeoutError) {
+            logger?.error(reason.message);
+          }
+          throw reason;
+        })
+        .finally(() => cancelableTimeout.cancel());
     }
     return basePromise;
   }

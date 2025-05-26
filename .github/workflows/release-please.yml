@@ -14,6 +14,7 @@ jobs:
       package-sdk-server-edge-released: ${{ steps.release.outputs['packages/shared/sdk-server-edge--release_created'] }}
       package-akamai-edgeworker-sdk-released: ${{ steps.release.outputs['packages/shared/akamai-edgeworker-sdk--release_created'] }}
       package-cloudflare-released: ${{ steps.release.outputs['packages/sdk/cloudflare--release_created'] }}
+      package-fastly-released: ${{ steps.release.outputs['packages/sdk/fastly--release_created'] }}
       package-react-native-released: ${{ steps.release.outputs['packages/sdk/react-native--release_created'] }}
       package-server-node-released: ${{ steps.release.outputs['packages/sdk/server-node--release_created'] }}
       package-vercel-released: ${{ steps.release.outputs['packages/sdk/vercel--release_created'] }}
@@ -44,7 +45,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-common
         name: Full release of packages/shared/common
@@ -64,7 +65,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-sdk-client
         name: Full release of packages/shared/sdk-client
@@ -84,7 +85,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-sdk-server
         name: Full release of packages/shared/sdk-server
@@ -104,7 +105,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-sdk-server-edge
         name: Full release of packages/shared/sdk-server-edge
@@ -124,7 +125,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-akamai-edgeworker-sdk
         name: Full release of packages/shared/akamai-edgeworker-sdk
@@ -144,13 +145,33 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-cloudflare
         name: Full release of packages/sdk/cloudflare
         uses: ./actions/full-release
         with:
           workspace_path: packages/sdk/cloudflare
+          aws_assume_role: ${{ vars.AWS_ROLE_ARN }}
+
+  release-fastly:
+    runs-on: ubuntu-latest
+    needs: ['release-please', 'release-sdk-server']
+    permissions:
+      id-token: write
+      contents: write
+    if: ${{ always() && !failure() && !cancelled() && needs.release-please.outputs.package-fastly-released == 'true'}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: 'https://registry.npmjs.org'
+      - id: release-fastly
+        name: Full release of packages/sdk/fastly
+        uses: ./actions/full-release
+        with:
+          workspace_path: packages/sdk/fastly
           aws_assume_role: ${{ vars.AWS_ROLE_ARN }}
 
   release-react-native:
@@ -164,7 +185,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-react-native
         name: Full release of packages/sdk/react-native
@@ -184,7 +205,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-react-native
         name: Full release of packages/sdk/browser
@@ -204,7 +225,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-server-node
         name: Full release of packages/sdk/server-node
@@ -224,7 +245,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-vercel
         name: Full release of packages/sdk/vercel
@@ -244,7 +265,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-akamai-base
         name: Full release of packages/sdk/akamai-base
@@ -264,7 +285,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-akamai-edgekv
         name: Full release of packages/sdk/akamai-edgekv
@@ -284,7 +305,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - run: |
           sudo apt-get update
@@ -308,7 +329,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - run: |
           sudo docker run -d -p 8000:8000 amazon/dynamodb-local
@@ -330,7 +351,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-node-server-sdk-otel
         name: Full release of packages/telemetry/node-server-sdk-otel
@@ -350,7 +371,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-tooling-jest
         name: Full release of packages/tooling/jest
@@ -370,7 +391,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-react-universal-sdk
         name: Full release of packages/sdk/react-universal
@@ -390,7 +411,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-react-native
         name: Full release of packages/sdk/server-ai
@@ -410,7 +431,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           registry-url: 'https://registry.npmjs.org'
       - id: release-browser-telemetry
         name: Full release of packages/telemetry/browser-telemetry

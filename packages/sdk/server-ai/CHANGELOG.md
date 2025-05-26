@@ -1,5 +1,82 @@
 # Changelog
 
+## [0.9.8](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.7...server-sdk-ai-v0.9.8) (2025-05-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.15.1 to 2.15.2
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.15.2
+
+## [0.9.7](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.6...server-sdk-ai-v0.9.7) (2025-04-29)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.15.0 to 2.15.1
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.15.1
+
+## [0.9.6](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.5...server-sdk-ai-v0.9.6) (2025-04-16)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.14.0 to 2.15.0
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.15.0
+
+## [0.9.5](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.4...server-sdk-ai-v0.9.5) (2025-04-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.13.0 to 2.14.0
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.14.0
+
+## [0.9.4](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.3...server-sdk-ai-v0.9.4) (2025-03-26)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.12.1 to 2.13.0
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.13.0
+
+## [0.9.3](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.2...server-sdk-ai-v0.9.3) (2025-03-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.12.0 to 2.12.1
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.12.1
+
+## [0.9.2](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.1...server-sdk-ai-v0.9.2) (2025-03-17)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.11.1 to 2.12.0
+  * peerDependencies
+    * @launchdarkly/js-server-sdk-common bumped from 2.x to 2.12.0
+
 ## [0.9.1](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.9.0...server-sdk-ai-v0.9.1) (2025-02-18)
 
 
@@ -30,7 +107,7 @@
 
 ### Bug Fixes
 
-* Correct documentation for AI config function. ([#754](https://github.com/launchdarkly/js-core/issues/754)) ([0bdb0be](https://github.com/launchdarkly/js-core/commit/0bdb0be6b0e0213c5139af9008884ea74be197b1))
+* Correct documentation for AI Config function. ([#754](https://github.com/launchdarkly/js-core/issues/754)) ([0bdb0be](https://github.com/launchdarkly/js-core/commit/0bdb0be6b0e0213c5139af9008884ea74be197b1))
 
 ## [0.8.0](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.7.1...server-sdk-ai-v0.8.0) (2025-01-23)
 
@@ -89,11 +166,11 @@
 
 ### ⚠ BREAKING CHANGES
 
-* Updated AI config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697))
+* Updated AI Config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697))
 
 ### Features
 
-* Updated AI config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697)) ([cd72ea8](https://github.com/launchdarkly/js-core/commit/cd72ea8193888b0635b5beffa0a877b18294777e))
+* Updated AI Config interface. ([#697](https://github.com/launchdarkly/js-core/issues/697)) ([cd72ea8](https://github.com/launchdarkly/js-core/commit/cd72ea8193888b0635b5beffa0a877b18294777e))
 
 ## [0.3.0](https://github.com/launchdarkly/js-core/compare/server-sdk-ai-v0.2.1...server-sdk-ai-v0.3.0) (2024-11-15)
 

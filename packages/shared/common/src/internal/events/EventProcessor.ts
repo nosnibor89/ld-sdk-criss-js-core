@@ -8,12 +8,17 @@ import { ClientContext } from '../../options';
 import { LDHeaders } from '../../utils';
 import { DiagnosticsManager } from '../diagnostics';
 import EventSender from './EventSender';
-import EventSummarizer, { SummarizedFlagsEvent } from './EventSummarizer';
+import EventSummarizer from './EventSummarizer';
 import { isFeature, isIdentify, isMigration } from './guards';
 import InputEvent from './InputEvent';
 import InputIdentifyEvent from './InputIdentifyEvent';
 import InputMigrationEvent from './InputMigrationEvent';
+import LDEventSummarizer, {
+  LDMultiEventSummarizer,
+  SummarizedFlagsEvent,
+} from './LDEventSummarizer';
 import LDInvalidSDKKeyError from './LDInvalidSDKKeyError';
+import MultiEventSummarizer from './MultiEventSummarizer';
 import shouldSample from './sampling';
 
 type FilteredContext = any;
@@ -32,7 +37,7 @@ interface CustomOutputEvent {
   kind: 'custom';
   creationDate: number;
   key: string;
-  contextKeys: Record<string, string>;
+  context: FilteredContext;
   data?: any;
   metricValue?: number;
   samplingRatio?: number;
@@ -83,9 +88,11 @@ interface PageviewOutputEvent {
  */
 type DiagnosticEvent = any;
 
-interface MigrationOutputEvent extends Omit<InputMigrationEvent, 'samplingRatio'> {
+interface MigrationOutputEvent extends Omit<InputMigrationEvent, 'samplingRatio' | 'context'> {
   // Make the sampling ratio optional so we can omit it when it is one.
   samplingRatio?: number;
+  // Context is optional because contextKeys is supported for backwards compatibility and may be provided instead of context.
+  context?: FilteredContext;
 }
 
 type OutputEvent =
@@ -104,9 +111,13 @@ export interface EventProcessorOptions {
   diagnosticRecordingInterval: number;
 }
 
+function isMultiEventSummarizer(summarizer: unknown): summarizer is LDMultiEventSummarizer {
+  return (summarizer as LDMultiEventSummarizer).getSummaries !== undefined;
+}
+
 export default class EventProcessor implements LDEventProcessor {
   private _eventSender: EventSender;
-  private _summarizer = new EventSummarizer();
+  private _summarizer: LDMultiEventSummarizer | LDEventSummarizer;
   private _queue: OutputEvent[] = [];
   private _lastKnownPastTime = 0;
   private _droppedEvents = 0;
@@ -131,6 +142,7 @@ export default class EventProcessor implements LDEventProcessor {
     private readonly _contextDeduplicator?: LDContextDeduplicator,
     private readonly _diagnosticsManager?: DiagnosticsManager,
     start: boolean = true,
+    summariesPerContext: boolean = false,
   ) {
     this._capacity = _config.eventsCapacity;
     this._logger = clientContext.basicConfiguration.logger;
@@ -140,6 +152,12 @@ export default class EventProcessor implements LDEventProcessor {
       _config.allAttributesPrivate,
       _config.privateAttributes.map((ref) => new AttributeReference(ref)),
     );
+
+    if (summariesPerContext) {
+      this._summarizer = new MultiEventSummarizer(this._contextFilter, this._logger);
+    } else {
+      this._summarizer = new EventSummarizer();
+    }
 
     if (start) {
       this.start();
@@ -208,11 +226,20 @@ export default class EventProcessor implements LDEventProcessor {
 
     const eventsToFlush = this._queue;
     this._queue = [];
-    const summary = this._summarizer.getSummary();
-    this._summarizer.clearSummary();
 
-    if (Object.keys(summary.features).length) {
-      eventsToFlush.push(summary);
+    if (isMultiEventSummarizer(this._summarizer)) {
+      const summaries = this._summarizer.getSummaries();
+
+      summaries.forEach((summary) => {
+        if (Object.keys(summary.features).length) {
+          eventsToFlush.push(summary);
+        }
+      });
+    } else {
+      const summary = this._summarizer.getSummary();
+      if (Object.keys(summary.features).length) {
+        eventsToFlush.push(summary);
+      }
     }
 
     if (!eventsToFlush.length) {
@@ -236,6 +263,7 @@ export default class EventProcessor implements LDEventProcessor {
       if (shouldSample(inputEvent.samplingRatio)) {
         const migrationEvent: MigrationOutputEvent = {
           ...inputEvent,
+          context: inputEvent.context ? this._contextFilter.filter(inputEvent.context) : undefined,
         };
         if (migrationEvent.samplingRatio === 1) {
           delete migrationEvent.samplingRatio;
@@ -331,7 +359,7 @@ export default class EventProcessor implements LDEventProcessor {
           kind: 'custom',
           creationDate: event.creationDate,
           key: event.key,
-          contextKeys: event.context.kindsAndKeys,
+          context: this._contextFilter.filter(event.context),
         };
 
         if (event.samplingRatio !== 1) {

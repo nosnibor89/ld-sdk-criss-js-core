@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.14.0](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.13.0...js-client-sdk-common-v1.14.0) (2025-05-21)
+
+
+### Features
+
+* Add support for per-context summary events. ([#859](https://github.com/launchdarkly/js-core/issues/859)) ([c9fa5c4](https://github.com/launchdarkly/js-core/commit/c9fa5c45f3ac2cbaad2f2e6312d5231c3f671d98))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.17.0 to 2.18.0
+
+## [1.13.0](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.12.6...js-client-sdk-common-v1.13.0) (2025-04-29)
+
+
+### Features
+
+* Add client-side SDK plugin support. ([#834](https://github.com/launchdarkly/js-core/issues/834)) ([a843a33](https://github.com/launchdarkly/js-core/commit/a843a33e97dcab706a0034bd1fd1e3d2f78a9262))
+* Add hook support for the track series. ([#827](https://github.com/launchdarkly/js-core/issues/827)) ([1519cb9](https://github.com/launchdarkly/js-core/commit/1519cb98b55f4e6a391da7adefddd8ac90e9258c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.16.0 to 2.17.0
+
+## [1.12.6](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.12.5...js-client-sdk-common-v1.12.6) (2025-04-16)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.15.0 to 2.16.0
+
+## [1.12.5](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.12.4...js-client-sdk-common-v1.12.5) (2025-04-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.14.0 to 2.15.0
+
+## [1.12.4](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.12.3...js-client-sdk-common-v1.12.4) (2025-03-26)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @launchdarkly/js-sdk-common bumped from 2.13.0 to 2.14.0
+
 ## [1.12.3](https://github.com/launchdarkly/js-core/compare/js-client-sdk-common-v1.12.2...js-client-sdk-common-v1.12.3) (2025-02-06)
 
 

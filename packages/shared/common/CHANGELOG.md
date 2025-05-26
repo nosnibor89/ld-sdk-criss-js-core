@@ -2,6 +2,46 @@
 
 All notable changes to `@launchdarkly/js-sdk-common` will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org).
 
+## [2.18.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.17.0...js-sdk-common-v2.18.0) (2025-05-21)
+
+
+### Features
+
+* Add support for per-context summary events. ([#859](https://github.com/launchdarkly/js-core/issues/859)) ([c9fa5c4](https://github.com/launchdarkly/js-core/commit/c9fa5c45f3ac2cbaad2f2e6312d5231c3f671d98))
+
+## [2.17.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.16.0...js-sdk-common-v2.17.0) (2025-04-29)
+
+
+### Features
+
+* Add client-side SDK plugin support. ([#834](https://github.com/launchdarkly/js-core/issues/834)) ([a843a33](https://github.com/launchdarkly/js-core/commit/a843a33e97dcab706a0034bd1fd1e3d2f78a9262))
+
+## [2.16.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.15.0...js-sdk-common-v2.16.0) (2025-04-16)
+
+
+### Features
+
+* Environment ID support for hooks ([#823](https://github.com/launchdarkly/js-core/issues/823)) ([63dc9f9](https://github.com/launchdarkly/js-core/commit/63dc9f9f1300c598e79be27909f8195ac66d54ef))
+
+## [2.15.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.14.0...js-sdk-common-v2.15.0) (2025-04-08)
+
+
+### Features
+
+* Option to use gzip to compress event ([#814](https://github.com/launchdarkly/js-core/issues/814)) ([4e91431](https://github.com/launchdarkly/js-core/commit/4e914317d31378e2a1eaed5aa03e0ac6beac43d5))
+
+## [2.14.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.13.0...js-sdk-common-v2.14.0) (2025-03-26)
+
+
+### Features
+
+* Support inline context for custom and migration events ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
+
+### Bug Fixes
+
+* Deprecate LDMigrationOpEvent.contextKeys in favor of LDMigrationOpEvent.context ([6aadf04](https://github.com/launchdarkly/js-core/commit/6aadf0463968f89bc3df10023267244c2ade1b31))
+
 ## [2.13.0](https://github.com/launchdarkly/js-core/compare/js-sdk-common-v2.12.0...js-sdk-common-v2.13.0) (2025-01-22)
 
 

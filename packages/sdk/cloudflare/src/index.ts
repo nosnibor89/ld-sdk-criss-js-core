@@ -14,15 +14,62 @@ import {
   BasicLogger,
   EdgeFeatureStore,
   init as initEdge,
+  internalServer,
   type LDClient,
-  type LDOptions,
+  type LDOptions as LDOptionsCommon,
 } from '@launchdarkly/js-server-sdk-common-edge';
 
 import createPlatformInfo from './createPlatformInfo';
 
-export * from '@launchdarkly/js-server-sdk-common-edge';
+export {
+  createMigration,
+  BasicLogger,
+  type BasicLoggerOptions,
+  type Cache,
+  EdgeFeatureStore,
+  type EdgeProvider,
+  integrations,
+  IsMigrationStage,
+  type LDBigSegmentsOptions,
+  type LDClient,
+  type LDClientContext,
+  type LDContext,
+  LDConcurrentExecution,
+  type LDEvaluationDetail,
+  type LDEvaluationDetailTyped,
+  type LDFeatureStore,
+  type LDFlagValue,
+  type LDFlagsState,
+  type LDFlagsStateOptions,
+  type LDLogger,
+  type LDMigration,
+  type LDMethodResult,
+  type LDMigrationOptions,
+  type LDMigrationOpEvent,
+  type LDMigrationOrigin,
+  type LDMigrationReadResult,
+  type LDMigrationResult,
+  LDMigrationStage,
+  LDMigrationSuccess,
+  type LDMigrationWriteResult,
+  type LDMigrationVariation,
+  type LDProxyOptions,
+  type LDTLSOptions,
+  type LDWaitForInitializationOptions,
+} from '@launchdarkly/js-server-sdk-common-edge';
 
-export type { LDClient };
+export type TtlCacheOptions = internalServer.TtlCacheOptions;
+
+/**
+ * The Launchdarkly Edge SDKs configuration options.
+ */
+export type LDOptions = {
+  /**
+   * Optional TTL cache configuration which allows for caching feature flags in
+   * memory.
+   */
+  cache?: TtlCacheOptions;
+} & LDOptionsCommon;
 
 /**
  * Creates an instance of the Cloudflare LaunchDarkly client.
@@ -41,7 +88,7 @@ export type { LDClient };
  * @param kvNamespace
  *  The Cloudflare KV configured for LaunchDarkly.
  * @param options
- *  Optional configuration settings. The only supported option is logger.
+ *  Optional configuration settings.
  * @return
  *  The new {@link LDClient} instance.
  */
@@ -51,9 +98,12 @@ export const init = (
   options: LDOptions = {},
 ): LDClient => {
   const logger = options.logger ?? BasicLogger.get();
+
+  const { cache: _cacheOptions, ...rest } = options;
+  const cache = options.cache ? new internalServer.TtlCache(options.cache) : undefined;
   return initEdge(clientSideID, createPlatformInfo(), {
-    featureStore: new EdgeFeatureStore(kvNamespace, clientSideID, 'Cloudflare', logger),
+    featureStore: new EdgeFeatureStore(kvNamespace, clientSideID, 'Cloudflare', logger, cache),
     logger,
-    ...options,
+    ...rest,
   });
 };

@@ -49,7 +49,7 @@ describe('given a requestor', () => {
               throw new Error('Function not implemented.');
             },
             entries(): Iterable<[string, string]> {
-              throw new Error('Function not implemented.');
+              return testHeaders ? Object.entries(testHeaders) : [];
             },
             has(_name: string): boolean {
               throw new Error('Function not implemented.');
@@ -98,6 +98,25 @@ describe('given a requestor', () => {
     });
   });
 
+  it('includes basis query param when provided', (done) => {
+    testResponse = 'a response';
+    requestor.requestAllData(
+      (err, body) => {
+        expect(err).toBeUndefined();
+        expect(body).toEqual(testResponse);
+
+        expect(requestsMade.length).toBe(1);
+        expect(requestsMade[0].url).toBe(
+          'https://sdk.launchdarkly.com/sdk/latest-all?basis=bogusSelector',
+        );
+        expect(requestsMade[0].options.headers?.authorization).toBe('sdkKey');
+
+        done();
+      },
+      [{ key: 'basis', value: 'bogusSelector' }],
+    );
+  });
+
   it('returns an error result for an http error', (done) => {
     testStatus = 401;
     requestor.requestAllData((err, _body) => {
@@ -115,7 +134,9 @@ describe('given a requestor', () => {
   });
 
   it('stores and sends etags', async () => {
-    testHeaders.etag = 'abc123';
+    testHeaders = {
+      etag: 'abc123',
+    };
     testResponse = 'a response';
     const res1 = await promisify<{ err: any; body: any }>((cb) => {
       requestor.requestAllData((err, body) => cb({ err, body }));
@@ -133,5 +154,18 @@ describe('given a requestor', () => {
     const req2 = requestsMade[1];
     expect(req1.options.headers?.['if-none-match']).toBe(undefined);
     expect(req2.options.headers?.['if-none-match']).toBe((testHeaders.etag = 'abc123'));
+  });
+
+  it('passes response headers to callback', async () => {
+    testHeaders = {
+      header1: 'value1',
+      header2: 'value2',
+      header3: 'value3',
+    };
+    const res = await promisify<{ err: any; body: any; headers: any }>((cb) => {
+      requestor.requestAllData((err, body, headers) => cb({ err, body, headers }));
+    });
+
+    expect(res.headers).toEqual(testHeaders);
   });
 });

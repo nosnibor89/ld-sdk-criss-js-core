@@ -1,14 +1,21 @@
 <script lang="ts">
-    import { LD, type LDFlagValue } from './client/SvelteLDClient.js';
+  import type { Snippet } from 'svelte';
+  import { LD, type LDFlagValue } from './client/SvelteLDClient.js';
 
-    export let flag: string;
-    export let matches: LDFlagValue = true;
+  interface LDFlagProps {
+    on: Snippet;
+    off: Snippet;
+    flag: string;
+    matches?: LDFlagValue;
+  }
 
-    $: flagValue = LD.watch(flag);
-  </script>
+  let { on, off, flag, matches = true }: LDFlagProps = $props();
 
-  {#if $flagValue === matches}
-    <slot name="true" />
-  {:else}
-    <slot name="false" />
-  {/if}
+  const flagValue = $derived(LD.watch(flag));
+</script>
+
+{#if $flagValue === matches}
+  {@render on()}
+{:else}
+  {@render off()}
+{/if}

@@ -1,19 +1,25 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { LD } from '../client/SvelteLDClient.js';
-	import type { LDClientID, LDContext } from '../client/SvelteLDClient.js';
+  import { onMount, type Snippet } from 'svelte';
+  import { LD } from '../client/SvelteLDClient.js';
+  import type { LDClientID, LDContext } from '../client/SvelteLDClient.js';
 
-	export let clientID: LDClientID;
-	export let context: LDContext;
-	const { initialize, initializing } = LD;
+  interface LDProviderProps {
+    clientID: LDClientID;
+    context: LDContext;
+    initializing?: Snippet;
+    children: Snippet;
+  }
 
-	onMount(() => {
-		initialize(clientID, context);
-	});
+  let { clientID, context, initializing, children }: LDProviderProps = $props();
+  const { initialize, initializing: isClientInitializing } = LD;
+
+  onMount(() => {
+    initialize(clientID, context);
+  });
 </script>
 
-{#if $$slots.initializing && $initializing}
-	<slot name="initializing">Loading flags (default loading slot value)...</slot>
+{#if initializing && $isClientInitializing}
+  {@render initializing()}
 {:else}
-	<slot />
+  {@render children()}
 {/if}
